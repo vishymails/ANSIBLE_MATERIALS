@@ -1,0 +1,323 @@
+PLAN 
+CODE
+BUILD
+TEST
+
+RELEASE 
+DEPLOY
+OPERATE
+MONITOR
+
+DEVOPS COMPONENTS
+-----------------
+
+CONTINUOUS DEVELOPMENT
+CONTINUOUS INTEGRATION
+CONTINUOUS TESTING
+CONTINUOUS MONITOING
+CONTINUOUS FEEDBACK
+CONTINUOUS DEPLOYMENT
+CONTINUOUS OPERATIONS
+
+
+Control - ansible will be installed (linux)
+worker machines (any)
+
+1. install ansible as root for non ansible user 
+
+a. install repos using ansible 
+b. create one non root user then install ansible 
+
+
+2. create same user name in all machines where ansible is going to take an effect OR you have to update user details in inventory
+
+3. configure ssh in all boxes 
+
+
+
+CENTOS 8 
+--------
+
+PYTHON 3.6
+
+USERNAME : ansibleadm
+PASSWORD : ansibleadm
+
+
+yum search epel 
+
+yum info epel-release 
+
+sudo yum insall epel-release (1:50)
+
+sudo yum config-manager --set-enabled PowerTools
+
+sudo yum config-manager --set-enabled PowerTools
+
+sudo yum update 
+sudo yum repolist
+
+su ansibleadm
+
+(sudo) yum -y install ansible 
+
+
+ansible --version 
+
+
+
+UBUNTU 18.4 (server only)
+-----------
+
+
+
+USERNAME : ansibleadm
+PASSWORD : ansibleadm
+
+
+su ansibleadm
+
+
+sudo apt install 
+
+sudo tasktel install ubuntu-mate-core 
+
+sudo service lightdm start 
+
+sudo hostnamectl set-hostname ControlSystem
+
+sudo apt update 
+
+sudo apt install software-properties-common
+
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+
+sudo apt install ansible 
+
+ansible --version 
+
+
+
+
+Hosts inventory
+---------------
+
+static inventory - ini file 
+dynamic inventory - python code 
+
+
+
+you can declare hosts file in 4 locations + adhoc location 
+
+1. /etc/ansible/hosts
+2. ~/hosts
+3. working directory 
+4. any directory but refered using -i 
+5. set env variable and use in configuration (user defined)
+
+
+
+ANSIBLE.CFG
+-----------
+
+1. /etc/ansible/ansible.cfg - DEFAULT
+2. ~/ansible.cfg - HIGH
+3. work dir - HIGHER 
+4. $ANSIBLE_CONFIG - TOP PRIORITY
+
+
+
+
+ cat /etc/hosts
+  819  vi /etc/hosts
+  820  su root
+  821  ls
+  822  clear
+  823  yum
+  824  yum list installed python
+  825  python
+  826  cat /etc/hosts
+  827  vi /etc/hosts
+  828  ansible --version
+  829  ansible all --version
+  830  ansible all --list-hosts
+  831  cd /etc
+  832  ls
+  833  cd ansible/
+  834  ls
+  835  cat ansible.cfg
+  836  c~
+  837  cd /
+  838  ls
+  839  ansible all --list-hosts
+  840  cat /etc/ansible/hosts
+  841  ansible all --list-hosts
+  842  cd /home
+  843  ls
+  844  cd ansibleadm/
+  845  ls
+  846  cd ibmfeb2021/
+  847  cd inventories/
+  848  ls
+  849  cat hosts1
+  850  ansible all --list-hosts
+  851  ansible all -i hosts1 --list-hosts
+  852  ansible all --list-hosts
+  853  ansible all -i hosts1 --list-hosts
+  854  ansible all --inventory  hosts1 --list-hosts
+  855  ansible centosgroup --inventory  hosts1 --list-hosts
+  856  ansible centosgroup,ubuntugroup --inventory  hosts1 --list-hosts
+  857  ansible 'ce*' --inventory  hosts1 --list-hosts
+  858  ansible all --list-hosts
+  859  cat /etc/ansible/ansible.cfg
+  860  cat /etc/ansible/hosts
+  861  cat /etc/ansible/ansible.cfg
+  862  ansible all --list-hosts
+  863  cd ..
+  864  cd config
+  865  md config
+  866  mkdir config
+  867  cd config
+  868  ls
+  869  touch ansible.cfg
+  870  ls
+  871  [defaults]
+  872  remote_user=ansibleadm
+  873  inventory = hosts
+  874  log_path=/home/mylog/ansible.log
+  875  no_log=false
+  876  no_target_syslog=true
+  877  host_key_checking = False
+  878  cat > ansible.cfg
+  879  cls
+  880  clear
+  881  cat ansible.cfg
+  882  cd ..
+  883  ansible all --list-hosts
+  884  cd ..
+  885  cd ibmfeb2021/config/
+  886  ls
+  887  cat ansible.cfg
+  888  ansible all --list-hosts
+  889  touch hosts
+  890  vi hosts
+  891  ansible all --list-hosts
+  892  cat ansible.cfg
+  893  cd ..
+  894  cd inventories/
+  895  ls
+  896  ansible all -i hosts5 --list-hosts
+  897  ansible centosgroup -i hosts6 --list-hosts
+  898  ansible ubuntugroup -i hosts6 --list-hosts
+  899  ansible linuxgroup -i hosts6 --list-hosts
+  900  ansible linux -i hosts6 --list-hosts
+  901  ansible linux -i hosts7 --list-hosts
+  902  ansible linux --list-hosts
+  903  ls
+  904  ansible all --list-hosts
+  905  ansible all --list-hosts -v
+  906  cd ..
+  907  cd adhoc_commands/
+  908  ls
+  909  ansible all --list-hosts
+  910  cat /etc/hosts
+  911  ansible AppServer -m command -a /usr/bin/hostname -o
+  912  ansible AppServer -m command -a set
+  913  set
+  914  ls
+  915  ansible AppServer -m command -a set
+  916  ansible AppServer -m shell -a set
+  917  ansible --help
+  918  ansible all -m command -a 'id'
+  919  ansible appgroup -m command -a 'id'
+  920  ansible DBServer -m command -a 'id'
+  921  ansible all -m command -a 'id'
+  922  ansible all --list-hosts
+  923  ping 192.168.0.102
+  924  clear
+  925  ansible AppServer -m command -a 'id' -u ansibleadm
+  926  ansible DBServer -m command -a 'id' -u ansibleadm
+  927  su root
+  928  ansible all -m command -a 'cat /etc/motd'
+  929  ansible DBServer -m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd'
+  930  ansible DBServer -m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd' -b
+  931  ansible all -m command -a 'cat /etc/motd'
+  932  ansible DBServer -m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd' --become
+  933  ansible-doc -l
+  934  ansible-doc avi-role
+  935  ansible-doc yum
+  936  ansible-doc shell
+  937  ansible-doc -s shell
+  938  ansible -m ping all
+  939  ansible AppServer -m yum -a "name=tree state=present"
+  940  ansible AppServer -m yum -a "name=tree state=present" -b
+  941  ansible AppServer -m service -a "name=httpd state=restarted"
+  942  ansible AppServer -m uri -a "url=http://localhost/"
+  943  ansible AppServer -m uri -a "url=http://localhost/stupid"
+  944  ansible AppServer -m uri -a "url=http://localhost/"
+  945  ansible AppServer -m yum -a 'name=httpd state=latest'
+  946  ansible AppServer -m yum -a 'name=httpd state=latest' -b
+  947  ansible AppServer -m service -a "name=httpd enabled=yes state=started" -b
+  948  ls
+  949  cd ibmfeb2021/playbooks/
+  950  ls
+  951  ansible-playbook example1.yml
+  952  ls
+  953  ansible-playbook example2.yml
+  954  ansible-playbook example2.yml -b
+  955  ansible-playbook example3.yml -b
+  956  ansible-playbook example4.yml -b
+  957  ansible-playbook example5.yml -b
+  958  ansible-playbook example6.yml -b
+  959  ls
+  960  cat /etc/ansible/ansible.cfg
+  961  cat /home/mylog/ansible.log
+  962  cat /etc/ansible/ansible.cfg
+  963  ansible-playbook example6.yml -b
+  964  ansible-playbook example7.yml -b
+  965  ansible-playbook example8.yml -b
+  966  ansible-playbook example9.yml -b
+  967  ansible-playbook example10.yml -b
+  968  ansible-playbook example11.yml -b
+  969  ansible-playbook example12.yml -b
+  970  clear
+  971  ansible-playbook example12.yml -b
+  972  ansible-playbook example14.yml -b
+  973  ansible-playbook example15.yml -b
+  974  ansible-playbook example16.yml -b
+  975  cd..
+  976  cd ..
+  977  cd example17/
+  978  ansible-playbook example17.yml -b
+  979  ls
+  980  ansible-playbook example17.yml -b
+  981  cd ..
+  982  cd example18
+  983  ls
+  984  ansible-playbook master.yml
+  985  ansible-playbook play2.yml
+  986  ansible-playbook master2.yml
+  987  cd ..
+  988  ansible-playbook example19.yml
+  989  cd ..
+  990  cd ibmfeb2021/
+  991  cd example20
+  992  ls
+  993  ansible-playbook when1.yml
+  994  ansible-playbook when2.yml
+  995  ansible-playbook when3.yml
+  996  ansible-playbook when4.yml
+  997  ansible-playbook when5.yml
+  998  ansible-playbook when5.yml -b
+  999  ansible all ansibleadm ALL=NOPASSWD: ALL-m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd'
+ 1000  ansible all ansibleadm ALL=NOPASSWD: ALL-m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd' --become
+ 1001  ansible all -m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd' --become
+ 1002  ansible appgroup -m copy -a 'content="Managed by IBM Ansible Team\n " dest=/etc/motd' --become --become-user root
+ 1003  ansible appgroup -m copy -a 'content="Managed by Oracle Ansible Team\n " dest=/etc/motd' --become --become-user root
+ 1004   ansible appgroup -m copy -a 'content="Managed by Oracle Ansible Team\n " dest=/etc/motd' --become --become-user root
+ 1005  history
+
+
+
+
+
