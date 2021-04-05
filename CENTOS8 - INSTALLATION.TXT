@@ -1,0 +1,35 @@
+
+INSTALLATION OF ANSIBLE ON CENTOS 8 
+
+IF YOU ARE USING CENTOS 7 OR OLD (INSTALL PYTHON 3 X PRIOR INSTALLATION OF ANSIBLE)
+
+
+
+login as root user do prior activities
+
+yum search epel 
+
+yum info epel-release 
+
+(sudo) yum install epel-release (TAKES 1 HR)
+
+sudo yum config-manager --set-enabled PowerTools
+
+sudo yum config-manager --set-enabled PowerTools
+
+RUN ONCE AGAIN 
+
+sudo yum update 
+
+
+create non root user 
+
+username : ansibleadm
+password : ansibleadm 
+
+
+su ansibleadm 
+
+
+sudo yum -y install ansible (TAKES 8 MINS)
+
